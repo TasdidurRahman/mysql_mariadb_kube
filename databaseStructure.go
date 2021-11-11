@@ -7,6 +7,7 @@ import (
 
 type database struct {
 	Name string `yaml:"name"`
+	these are cahenaslkjalsdkjfhlakjsdhf
 	Tables []Table `yaml:"tables,omitempty"`
 }
 
