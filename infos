@@ -1,0 +1,6 @@
+#carries all extra infos and commands
+
+mariadb:
+user: root
+password: rootpwd1
+
