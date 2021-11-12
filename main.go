@@ -17,23 +17,12 @@ func main(){
 	fmt.Println("Connected to:", version)
 
 
-	olddb := Database{
-		Name:         "bangla",
-		CharacterSet: "",
-		Collation:    "",
-		Encryption:   "",
-		ReadOnly:     0,
-	}
-
-	//olddb.createDB(db)
-
-	newdb := Database{
-		Name:         "bangla",
-		CharacterSet: big5,
-		Encryption:   Y,
-		ReadOnly:     enable,
-	}
-	olddb.alterDB(db,newdb)
-
 
 }
+
+/*
+https://pkg.go.dev/database/sql
+https://mariadb.com/kb/en/create-database/
+https://mariadb.com/kb/en/drop-database/
+https://mariadb.com/kb/en/alter-database/
+ */
