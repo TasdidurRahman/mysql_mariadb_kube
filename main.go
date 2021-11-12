@@ -16,58 +16,24 @@ func main(){
 	db.QueryRow("SELECT VERSION()").Scan(&version)
 	fmt.Println("Connected to:", version)
 
-	//db.Exec("create database connect")
 
-	columobj1 := Column{
-		Name: "name",
-		DataType: varchar10,
-		AllowNull: no,
+	olddb := Database{
+		Name:         "bangla",
+		CharacterSet: "",
+		Collation:    "",
+		Encryption:   "",
+		ReadOnly:     0,
 	}
 
-	columobj2 := Column{
-		Name: "age",
-		DataType: integer,
-		AllowNull: no,
+	//olddb.createDB(db)
+
+	newdb := Database{
+		Name:         "bangla",
+		CharacterSet: big5,
+		Encryption:   Y,
+		ReadOnly:     enable,
 	}
-
-	columobj3 := Column{
-		Name: "married",
-		DataType: varchar10,
-		AllowNull: yes,
-	}
-
-	tabobj1 := Table{
-		Name: "single",
-		Columns: []Column{columobj1,columobj2,columobj3},
-	}
-
-	tabobj2 := Table{
-		Name: "info",
-		Columns: []Column{columobj1,columobj2},
-	}
-
-	tabobj3 := Table{
-		Name: "extra",
-		Columns: []Column{columobj3,columobj2},
-	}
-
-
-	DBobj := database{
-		Name: "mongo",
-		Tables: []Table{tabobj1,tabobj2},
-	}
-
-	DBobj.createDB(db)
-	DBobj.createTables(db)
-	DBobj.addTable(db,tabobj3)
-
-
-
-/*
-	adb := database{Name: "a"}
-	db.Exec(adb.deleteDB())
-*/
-
+	olddb.alterDB(db,newdb)
 
 
 }

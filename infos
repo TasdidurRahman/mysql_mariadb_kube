@@ -4,3 +4,53 @@ mariadb:
 user: root
 password: rootpwd1
 
+create database:
+https://dev.mysql.com/doc/refman/8.0/en/create-database.html
+
+database properties : [ name, character set, collation, encryption , read only]
+
+inspect database characterset and collation :https://www.sqlines.com/mysql/get_db_charset_collation
+
+database naming convention : https://dev.mysql.com/doc/refman/8.0/en/identifiers.html
+
+privilage provided by mysql : https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_alter
+
+user create grant options : https://dev.mysql.com/doc/refman/8.0/en/create-user.html
+
+//privileges
+	/*
+	SELECT, DROP , INSERT, UPDATE, DELETE,
+	CREATE, REFERENCES, INDEX, ALTER,
+	CREATE TEMPORARY TABLES,
+	LOCK TABLES, EXECUTE, CREATE VIEW,
+	SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE,
+	EVENT, TRIGGER, DELETE HISTORY ON
+	 */
+
+
+
+CREATE SCHEMA is a synonym for CREATE DATABASE. *
+An error occurs if the database exists and you did not specify IF NOT EXISTS. *
+CREATE DATABASE is not permitted within a session that has an active LOCK TABLES statement. *
+Each create_option specifies a database characteristic. Database characteristics are stored in the data dictionary. *
+If the database name is omitted, the statement applies to the default database. In that case, an error occurs if there is no default database.*
+
+**A stored routine that uses the database defaults when the routine is created includes those defaults
+as part of its definition. (In a stored routine, variables with character data types use the database
+defaults if the character set or collation are not specified explicitly. See Section 13.1.17,
+“CREATE PROCEDURE and CREATE FUNCTION Statements”.) If you change the default character set or collation
+ for a database, any stored routines that are to use the new defaults must be dropped and recreated. **
+
+Enabling READ ONLY affects all users of the database, with these exceptions that are not subject to read-only checks: *
+
+LOCK TABLES and UNLOCK TABLES Statements : https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html
+
+Character Sets, Collations, Unicode : https://dev.mysql.com/doc/refman/8.0/en/charset.html
+SHOW CHARACTER SET Statement : https://dev.mysql.com/doc/refman/8.0/en/show-character-set.html
+SHOW COLLATION Statement : https://dev.mysql.com/doc/refman/8.0/en/show-collation.html
+
+
+probably the last thing to see:
+server system variables : https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_table_encryption_privilege_check
+
+
