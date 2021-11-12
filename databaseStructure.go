@@ -13,8 +13,7 @@ type Database struct {
 	// mysql specific
 	Encryption encryptionEnabled `yaml:"encryption"`
 	ReadOnly readOnly `yaml:"read_only"`
-	// mariadb specific
-	Comment string `yaml:"comment"`
+
 }
 
 func (d *Database)createDB(cl *sql.DB){
@@ -39,21 +38,13 @@ func (d *Database)alterDB(cl *sql.DB, newdb Database){
 		d.Collation = newdb.Collation
 		query += collation + string(d.Collation)
 	}
-	// mysql
 	if d.ReadOnly != newdb.ReadOnly {
 		d.ReadOnly = newdb.ReadOnly
 		query += readonly + strconv.Itoa(int(d.ReadOnly))
-		//fmt.Println(int(d.ReadOnly))
 	}
-	// mysql
 	if d.Encryption != newdb.Encryption {
 		d.Encryption = newdb.Encryption
 		query += encryption + string(d.Encryption)
-	}
-	//mariadb
-	if d.Comment != newdb.Comment {
-		d.Comment = newdb.Comment
-		query += comment + insideSingleQuotes(d.Comment)
 	}
 
 	query += semicolon
