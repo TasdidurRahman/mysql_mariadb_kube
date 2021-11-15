@@ -10,25 +10,56 @@ type Database struct {
 	Name         string        `yaml:"name"`
 	CharacterSet charactersets `yaml:"character_set"`
 	Collation    collations     `yaml:"collation"`
-	// mysql specific
 	Encryption encryptionEnabled `yaml:"encryption"`
 	ReadOnly readOnly `yaml:"read_only"`
 
 }
 
 func (d *Database)createDB(cl *sql.DB){
-	query := create + database + d.Name + semicolon
-	cl.Exec(query)
-	fmt.Println("database created...")
+
+	//make query string ready
+	query := create + database + d.Name
+	if d.CharacterSet != nullcharset {
+		query += characterset + string(d.CharacterSet)
+	}
+	if d.Collation != nullCollation{
+		query += collation + string(d.Collation)
+	}
+	if d.Encryption != enc_none {
+		query += encryption + string(d.Encryption)
+	}
+	query += semicolon
+
+	// execute query
+	_ , err := cl.Exec(query)
+	if err != nil {
+		// handle error
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(d.Name + " ==> database created...")
 }
 
 func (d *Database)deleteDB(cl *sql.DB){
+
+	//make query string ready
 	query := drop + database + d.Name + semicolon
-	cl.Exec(query)
-	fmt.Println("database deleted...")
+
+	// execute query
+	_ , err := cl.Exec(query)
+	if err != nil {
+		// handle error
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(d.Name + " ==> database deleted...")
 }
 
 func (d *Database)alterDB(cl *sql.DB, newdb Database){
+
+	//dbname altering is not implemented
+
+	//make query string ready
 	query := alter + database + d.Name
 	if d.CharacterSet != newdb.CharacterSet {
 		d.CharacterSet = newdb.CharacterSet
@@ -38,24 +69,38 @@ func (d *Database)alterDB(cl *sql.DB, newdb Database){
 		d.Collation = newdb.Collation
 		query += collation + string(d.Collation)
 	}
-	if d.ReadOnly != newdb.ReadOnly {
-		d.ReadOnly = newdb.ReadOnly
-		query += readonly + strconv.Itoa(int(d.ReadOnly))
-	}
 	if d.Encryption != newdb.Encryption {
 		d.Encryption = newdb.Encryption
 		query += encryption + string(d.Encryption)
 	}
-
+	if d.ReadOnly != newdb.ReadOnly {
+		d.ReadOnly = newdb.ReadOnly
+		query += readonly + strconv.Itoa(int(d.ReadOnly))
+	}
 	query += semicolon
-	fmt.Println(query)
-	cl.Exec(query)
+
+	//execute query
+	_ , err := cl.Exec(query)
+	if err != nil {
+		// handle error
+		fmt.Println(err)
+		return
+	}
 	fmt.Println("database altered...")
 }
 
 func (d *Database)useDB(cl *sql.DB){
+	//make query string ready
 	query := use + d.Name + semicolon
-	cl.Exec(query)
+
+	//execute query
+	_ , err := cl.Exec(query)
+	if err != nil {
+		//handle error
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(d.Name + " ==> using db...")
 }
 
 

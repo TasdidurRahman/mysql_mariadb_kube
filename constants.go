@@ -4,9 +4,30 @@ type charactersets string
 type collations string
 type encryptionEnabled string
 type readOnly int32
+
 const (
 
+	//string constants
+	create string = " CREATE "
+	drop          string = " DROP "
+	alter         string = " ALTER "
+	database      string = " DATABASE "
+	table         string = " TABLE "
+	comma         string = " , "
+	use           string = " USE "
+	on            string = " ON "
+	space         string = " "
+	nl            string = "\n"
+	semicolon     string = ";"
+	characterset string = " CHARACTER SET "
+	collation string = " COLLATE "
+	readonly string = " READ ONLY "
+	encryption string = " ENCRYPTION "
+	comment string = " COMMENT "
+	modifyname string = " MODIFY NAME "
+
 	// charecterset constants
+	nullcharset charactersets = ""
 	big5     charactersets = "big5"
 	dec8     charactersets = "dec8"
 	cp850    charactersets = "cp850"
@@ -50,6 +71,7 @@ const (
 
 
 	//collation constants
+	nullCollation collations = ""
 	big5_chinese_ci collations = "big5_chinese_ci"
 	dec8_swedish_ci collations = "dec8_swedish_ci"
 	cp850_general_ci collations = "cp850_general_ci"
@@ -94,34 +116,15 @@ const (
 	//encryptionEnabled
 	Y encryptionEnabled = "'Y'"
 	N encryptionEnabled = "'N'"
+	enc_none encryptionEnabled = ""
 
 	//readOnly
 	enable readOnly = 1
-	disable readOnly = 2
+	disable readOnly = 0
 
-
+	nullComment string = ""
 )
 
-
-const (
-	create string = " CREATE "
-	drop          string = " DROP "
-	alter         string = " ALTER "
-	database      string = " DATABASE "
-	table         string = " TABLE "
-	comma         string = " , "
-	use           string = " USE "
-	on            string = " ON "
-	space         string = " "
-	nl            string = "\n"
-	semicolon     string = ";"
-	characterset string = " CHARACTER SET "
-	collation string = " COLLATE "
-	readonly string = " READ ONLY "
-	encryption string = " ENCRYPTION "
-	comment string = " COMMENT "
-	//modifyname string = " MODIFY NAME "
-)
 
 func insideParenthesis(s string)(ret string){
 	ret = "( " + s +" )"

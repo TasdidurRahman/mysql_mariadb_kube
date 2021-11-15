@@ -16,24 +16,4 @@ func main(){
 	db.QueryRow("SELECT VERSION()").Scan(&version)
 	fmt.Println("Connected to:", version)
 
-
-	olddb := Database{
-		Name:         "bangla",
-		CharacterSet: "",
-		Collation:    "",
-		Encryption:   "",
-		ReadOnly:     0,
-	}
-
-	//olddb.createDB(db)
-
-	newdb := Database{
-		Name:         "bangla",
-		CharacterSet: big5,
-		Encryption:   Y,
-		ReadOnly:     enable,
-	}
-	olddb.alterDB(db,newdb)
-
-
 }
