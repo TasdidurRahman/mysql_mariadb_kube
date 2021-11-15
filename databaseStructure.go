@@ -15,7 +15,7 @@ type Database struct {
 func (d *Database)createDB(cl *sql.DB){
 
 	//make query string ready
-	query := create + database + d.Name
+	query := create + database + d.Name // should it be if not exists ?
 	if d.CharacterSet != nullcharset {
 		query += characterset + string(d.CharacterSet)
 	}
@@ -73,7 +73,7 @@ func (d *Database)alterDB(cl *sql.DB, newdb Database){
 	query += semicolon
 
 	// execute query
-	_, err := cl.Exec(query)
+	_, err := cl.Query(query)
 	if err != nil {
 		// handle error
 		fmt.Println(err)

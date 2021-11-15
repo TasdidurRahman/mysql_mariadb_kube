@@ -25,4 +25,4 @@ https://pkg.go.dev/database/sql
 https://mariadb.com/kb/en/create-database/
 https://mariadb.com/kb/en/drop-database/
 https://mariadb.com/kb/en/alter-database/
- */
+*/
