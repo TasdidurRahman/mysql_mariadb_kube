@@ -102,26 +102,3 @@ func (d *Database)useDB(cl *sql.DB){
 	}
 	fmt.Println(d.Name + " ==> using db...")
 }
-
-
-
-
-
-
-/*
-func (d * database)createTables(cl *sql.DB){
-	d.useDB(cl)
-	for _,table := range d.Tables {
-		cl.Exec(table.create())
-	}
-	fmt.Println("tables created...")
-}
-
-func (d *database)addTable(cl *sql.DB,t Table) {
-	d.Tables = append(d.Tables,t)
-	d.useDB(cl)
-	cl.Exec(t.create())
-	fmt.Println("table added...")
-}
-
- */
