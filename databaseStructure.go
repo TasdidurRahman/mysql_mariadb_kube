@@ -122,7 +122,7 @@ func getDB(name string, cl *sql.DB)(ret Database){
 			if pre2 + space + pre1 == "CHARACTER SET"{
 				ret.CharacterSet = charactersets(s)
 			}
-			if pre1 == "COLLATION"{
+			if pre1 == "COLLATE"{
 				ret.Collation = collations(s)
 			}
 			if pre1 == "COMMENT"{
