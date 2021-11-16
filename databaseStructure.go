@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 )
 
 type Database struct {
@@ -94,4 +95,42 @@ func (d *Database)useDB(cl *sql.DB){
 		return
 	}
 	fmt.Println(d.Name + " ==> using db...")
+}
+
+func getDB(name string, cl *sql.DB)(ret Database){
+
+	//make query string ready
+	query := show + create + database + name + semicolon
+
+	//execute query
+	res, err := cl.Query(query)
+
+	if err != nil {
+		//handle error
+		fmt.Println(err)
+	}
+
+	//process
+	for res.Next(){
+		var dbname, retquery string
+		res.Scan(&dbname,&retquery)
+		ret.Name = dbname
+		split := strings.Split(retquery," ")
+		pre1 := ""
+		pre2 := ""
+		for _,s := range split{
+			if pre2 + space + pre1 == "CHARACTER SET"{
+				ret.CharacterSet = charactersets(s)
+			}
+			if pre1 == "COLLATION"{
+				ret.Collation = collations(s)
+			}
+			if pre1 == "COMMENT"{
+				ret.Comment = s
+			}
+			pre2 = pre1
+			pre1 = s
+		}
+	}
+	return ret
 }

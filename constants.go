@@ -8,7 +8,8 @@ type readOnly int32
 const (
 
 	//string constants
-	create string = " CREATE "
+	show 		  string = " SHOW "
+	create 		  string = " CREATE "
 	drop          string = " DROP "
 	alter         string = " ALTER "
 	database      string = " DATABASE "
@@ -19,12 +20,12 @@ const (
 	space         string = " "
 	nl            string = "\n"
 	semicolon     string = ";"
-	characterset string = " CHARACTER SET "
-	collation string = " COLLATE "
-	readonly string = " READ ONLY "
-	encryption string = " ENCRYPTION "
-	comment string = " COMMENT "
-	modifyname string = " MODIFY NAME "
+	characterset  string = " CHARACTER SET "
+	collation 	  string = " COLLATE "
+	readonly 	  string = " READ ONLY "
+	encryption 	  string = " ENCRYPTION "
+	comment 	  string = " COMMENT "
+	modifyname 	  string = " MODIFY NAME "
 
 	// charecterset constants
 	nullcharset charactersets = ""
