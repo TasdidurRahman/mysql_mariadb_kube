@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type Database struct {
@@ -101,4 +102,52 @@ func (d *Database)useDB(cl *sql.DB){
 		return
 	}
 	fmt.Println(d.Name + " ==> using db...")
+}
+
+func getDB(name string, cl *sql.DB)(ret Database){
+
+	//make query string ready
+	query := show + create + database + name + semicolon
+
+	//execute query
+	res, err := cl.Query(query)
+
+	if err != nil {
+		//handle error
+		fmt.Println(err)
+	}
+
+	//process
+	for res.Next(){
+		var dbname, retquery string
+		res.Scan(&dbname,&retquery)
+		ret.Name = dbname
+		fmt.Println(retquery)
+		split := strings.Split(retquery," ")
+		pre1 := ""
+		pre2 := ""
+		pre3 := ""
+		for _,s := range split{
+			if pre2 + space + pre1 == "CHARACTER SET"{
+				ret.CharacterSet = charactersets(s)
+			}
+			if pre1 == "COLLATE"{
+				ret.Collation = collations(s)
+			}
+			if pre3 + space + pre2 + space + pre1 == "READ ONLY ="{
+				x,_ :=  strconv.Atoi(s)
+				ret.ReadOnly = readOnly(x)
+			}
+			if s == "ENCRYPTION='N'"{
+				ret.Encryption = N
+			}
+			if s == "ENCRYPTION='Y'"{
+				ret.Encryption = Y
+			}
+			pre3 = pre2
+			pre2 = pre1
+			pre1 = s
+		}
+	}
+	return ret
 }

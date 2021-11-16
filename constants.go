@@ -8,6 +8,7 @@ type readOnly int32
 const (
 
 	//string constants
+	show string = " SHOW "
 	create string = " CREATE "
 	drop          string = " DROP "
 	alter         string = " ALTER "
